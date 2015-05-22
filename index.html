@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Brandon Castellano">
+        
+        <link rel="shortcut icon" href="./img/favicon.ico">
+
+	<title>OpenCV 3.0 Install Guide</title>
+
+        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/highlight.css">
+        <link href="./css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href=".">OpenCV 3.0 Install Guide</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li class="active">
+                    <a href=".">Installation</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="migrating/">Migration & Changes</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="disabled">
+                    <a rel="next" >
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="migrating/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/Breakthrough">
+                        
+                        Brandon Castellano
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#introduction-and-overview">Introduction and Overview</a></li>
+        
+    
+        <li class="main "><a href="#installing-on-windows-pre-built-binaries">Installing on Windows (pre-built binaries)</a></li>
+        
+    
+        <li class="main "><a href="#installing-on-linux-compiling-from-source">Installing on Linux (compiling from source)</a></li>
+        
+    
+        <li class="main "><a href="#verifying-install-and-python-code-migration">Verifying Install and Python Code Migration</a></li>
+        
+    
+        <li class="main "><a href="#linux-build-issues">Linux Build Issues</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h2 id="introduction-and-overview">Introduction and Overview</h2>
+<p><code>This section is still under development.</code></p>
+<p>The guide contains instructions for installing the latest stable release of OpenCV (including the Python cv2 module), using pre-built binaries on Windows (for both 32-bit and 64-bit environments), and compiling from source on Linux (tested on Ubuntu 12.04/14.04, also applicable to Debian and other distros). In addition, changes to the OpenCV Python interface (the cv2 module) are also discussed, to help migrate Python code from OpenCV 2.4.x to 3.0+.</p>
+<p>This guide was written based on OpenCV 3.0-rc1 (which can be found on the official website) and using Python 2.7.x, running on 64-bit versions of Windows 7 SP1 (with both 32-bit and 64-bit Python environments) and Xubuntu 12.04 / 14.04. Note that although OpenCV now includes support for Python 3, a binary release is not yet included, and must be compiled from source. This guide is also applicable for other versions of Ubuntu (and Xubuntu/Lubuntu/Kubuntu), as well Debian and other Debian-like Linux distros.</p>
+<h2 id="installing-on-windows-pre-built-binaries">Installing on Windows (pre-built binaries)</h2>
+<p>Support for Python 3, or adding other non-standard features, requires compiling from source.  To compile from source on Windows, see the official OpenCV documentation.</p>
+<h2 id="installing-on-linux-compiling-from-source">Installing on Linux (compiling from source)</h2>
+<pre><code>sudo apt-get install [packages]
+</code></pre>
+<p>If you run into build issues, ensure that you have all the required dependencies and header files on your system.  If these issues persist, see the <a href="#linux-build-issues"><strong>Linux Build Issues</strong></a> section below for some possible workarounds.  When installing OpenCV 3.0-rc1 on Xubuntu 12.04, I found that I had to modify one of the OpenCV header files to add some additional codec <code>#define</code> lines.</p>
+<h2 id="verifying-install-and-python-code-migration">Verifying Install and Python Code Migration</h2>
+<p>You can check what version of the <code>cv2</code> module Python is using by running the following in a <code>python</code> shell:</p>
+<pre><code>import cv2
+print cv2.__version__
+</code></pre>
+<p>Assuming the correct version string is printed, everything should be installed correctly at this point.  Note, however, that there are some major changes to the <code>cv2</code> module hierarchy itself, and Python programs written with OpenCV 2.4.x in mind may not work properly.  See the next section, <a href="migrating/"><strong>Migration &amp; Changes</strong></a></p>
+<h2 id="linux-build-issues">Linux Build Issues</h2></div>
+        </div>
+
+        
+
+        <script src="./js/jquery-1.10.2.min.js"></script>
+        <script src="./js/bootstrap-3.0.3.min.js"></script>
+        <script src="./js/highlight.pack.js"></script>
+        <script src="./js/base.js"></script>
+    </body>
+</html>
