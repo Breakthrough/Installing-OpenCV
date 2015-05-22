@@ -1,2 +1,17 @@
-# Installing-OpenCV
-A guide on compiling &amp; installing OpenCV 3.0, and details on changes to the Python module.
+# OpenCV 3.0 Install & Python Migration Guide
+
+----------------------------------------------------------
+
+#### [**Click here to view the install/migration guide itself.**](https://Breakthrough.github.io/Installing-OpenCV)
+
+----------------------------------------------------------
+
+This repo contains supporting material for the OpenCV 3.0 Installation & Python Migration Guide, which is located at [`https://Breakthrough.github.io/Installing-OpenCV`](https://Breakthrough.github.io/Installing-OpenCV).  The guide contains instructions for installing the latest stable release of OpenCV (including the Python `cv2` module), using pre-built binaries on Windows (for both 32-bit and 64-bit environments), and compiling from source on Linux (tested on Ubuntu 12.04/14.04, also applicable to Debian and other distros).  In addition, changes to the OpenCV Python interface (the `cv2` module) are also discussed, to help migrate Python code from OpenCV 2.4.x to 3.0+.
+
+This guide was written based on **OpenCV 3.0-rc1** (which can be found [on the official website](http://opencv.org/downloads.html)) and using Python 2.7.x, running on 64-bit versions of Windows 7 SP1 (with both 32-bit and 64-bit Python environments) and Xubuntu 12.04 / 14.04.  Note that although OpenCV now includes support for Python 3, a binary release is not yet included, and must be compiled from source.  This guide is also applicable for other versions of Ubuntu (and Xubuntu/Lubuntu/Kubuntu), as well Debian and other Debian-like Linux distros.
+
+----------------------------------------------------------
+
+Except where explicitly stated otherwise, the contents of this repository are hereby released into the public domain.
+
+Copyright (C) 2015 Brandon Castellano.  All rights reserved.
