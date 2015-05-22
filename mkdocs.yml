@@ -1,0 +1,11 @@
+site_name: OpenCV 3.0 Install Guide
+repo_url: https://github.com/Breakthrough
+repo_name: "Brandon Castellano"
+site_author: "Brandon Castellano"
+copyright: "Copyright &copy; 2015 Brandon Castellano.  All rights reserved.<br>This document is hereby released into the public domain."
+
+theme: flatly
+
+pages:
+- [index.md, "Installation"]
+- [migrating.md, "Migration & Changes"]
