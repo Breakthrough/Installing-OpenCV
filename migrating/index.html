@@ -108,12 +108,26 @@
             <div class="col-md-9" role="main">
 
 <h2 id="migrating-code-from-opencv-24x-to-30">Migrating Code from OpenCV 2.4.x to 3.0+</h2>
-<p><code>This section is still under development.</code></p>
-<p>There are some changes made in the Python <code>cv2</code> interface in OpenCV 3.0 that will cause errors in some programs written for the older version (<code>&lt;= 2.4</code>).  It is recommended that you check the version installed at runtime (using <code>cv2.__version__</code>), and take appropriate action if an older version (<code>&lt; 3.0</code>) is present.</p>
-<p>Changes to the <code>cv2</code> module itself are discussed below, and should help with what changes need to be made to existing programs for them to run smoothly in newer versions of OpenCV (<code>&gt;= 3.0</code>).</p>
+<p>There are some changes made in the Python <code>cv2</code> interface in OpenCV 3.0 that will cause errors in some programs written for older versions (OpenCV 2.4.11 and prior).  Changes to the <code>cv2</code> module itself are discussed below, and should demonstrate what changes need to be made to existing programs for them to run properly with newer versions of OpenCV (<code>&gt;= 3.0.0</code>).</p>
+<p>It is recommended that you check the version installed at runtime (using <code>cv2.__version__</code>), and take appropriate action if an older version is present - anything prior to OpenCV 3.0 - and you happen to use some of the constructs which were changed.</p>
+<p>Note that this section of the document is still under development, and more differences will be added as they are found.  Viewing all properties of the <code>cv2</code> module (using <code>dir(cv2)</code> in a Python shell) is helpful.</p>
+<hr />
 <h2 id="changes-to-the-cv2-module">Changes to the <code>cv2</code> Module</h2>
-<h3 id="removal-of-legacy-cv2cv-module">Removal of Legacy <code>cv2.cv</code> Module</h3>
-<h3 id="changes-to-video-io-api">Changes to Video I/O API</h3></div>
+<hr />
+<h4 id="removal-of-legacy-cv2cv-module">Removal of Legacy <code>cv2.cv</code> Module</h4>
+<p>Any code referencing <code>cv2.cv</code> must be changed to work with OpenCV 3.0.  Most of the constants that were defined there, however, have simply been moved directly into the <code>cv2</code> module.  In some cases, you can simply replace instances of <code>cv2.cv</code> with <code>cv2</code>.  For example:</p>
+<pre><code class="python">cap = cv2.VideoCapture(&quot;some_video.mp4&quot;)
+
+# Pre-3.0 Way (&lt;= OpenCV 2.4.11) - WILL NOT WORK ANYMORE
+framerate = cap.get(cv2.cv.CV_CAP_PROP_FPS)
+
+# New Way (OpenCV &gt;= 3.0)
+framerate = cap.get(cv.CV_CAP_PROP_FPS)
+</code></pre>
+
+<hr />
+<h4 id="changes-to-video-io-api">Changes to Video I/O API</h4>
+<p>When setting the FourCC codec ID, there is no cv2.CV_FOURCC anymore.  This appears to be a capture property that must be set with the VideoCapture <code>set</code> method now.</p></div>
         </div>
 
         
