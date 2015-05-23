@@ -177,6 +177,6 @@ On some systems you may run into issues when compiling OpenCV itself, depending 
 
 If you run into an issue where build errors are caused by certain codecs not being defined, you can download a more recent version of `ffmpeg_codecs.hpp` [from here](https://github.com/Itseez/opencv/blob/master/modules/videoio/src/ffmpeg_codecs.hpp), and replace it in the source code you downloaded/extracted in the `modules/videoio/src/` folder.
 
- Alternatively, you can declare them manually by editing the `ffmpeg_codecs.hpp` file itself, and adding the missing entries manually.  In my particular case, I was missing `AV_CODEC_ID_H263I` and `AV_CODEC_ID_WNV1`.  You can see where the changes have to be made by viewing [this commit from OpenCV on GitHub](https://github.com/Itseez/opencv/commit/f052b0bc4d2619daafe5c56d91fc4a6cb00b8b7c).
+ Alternatively, you can declare them manually by editing the `ffmpeg_codecs.hpp` file itself by adding the missing codec entry for `H263I`, and renaming `WNV` to `WNV1`.  You can see what changes have to be made by viewing [this commit from the OpenCV GitHub project](https://github.com/Itseez/opencv/commit/f052b0bc4d2619daafe5c56d91fc4a6cb00b8b7c).
 
  Once the file is updated, you can call `make` again from the `build/` folder, and OpenCV should finish compiling without error now.
