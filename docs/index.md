@@ -2,7 +2,9 @@
 
 This document contains instructions for installing and migrating to the latest release of OpenCV (version 3) and the Python bindings.  In addition to some API changes, there are also changes to the Python interface (e.g. removal of `cv2.cv`) that may require changes in existing code to work with the new version of the `cv2` module.  After installation, see the next page, [**Migration & Changes**](migrating.md), for details regarding the changes to the module and for help migrating existing Python code to the new version.
 
+
 ------------------------------------------------------
+
 
 This page covers installing OpenCV 3 on Windows (using pre-built binaries) and Linux (compiled from source), including the Python interface (the `cv2` module).  OpenCV can be downloaded from [the official OpenCV website](http://opencv.org/downloads.html).  Note that this guide is written based on OpenCV version **3.0-rc1**.  After installation, it is recommended that you can check the version of OpenCV that Python is using:
 
@@ -11,10 +13,11 @@ This page covers installing OpenCV 3 on Windows (using pre-built binaries) and L
 
     # Should print 3.0.0-rc1 or newer.
 
-Note that although OpenCV 3.0 is the latest release, by convention, the module is still named `cv2`.  
+Note that although OpenCV 3.0 is the latest release, by convention, the module is still named `cv2`.
 
 
 ------------------------------------------------------
+
 
 ## Installing on Windows (pre-built binaries)
 
@@ -57,7 +60,6 @@ And we're done!  Continue on to the [Verifying Installation](#verifying-installa
 
 
 ------------------------------------------------------
-
         
 
 ## Installing on Linux (compiling from source)
@@ -78,8 +80,19 @@ Execute all of following commands from the `build` sub-folder itself, so the com
 
 #### Installing Build Dependencies
 
-Let's ensure we have all of the required dependencies to compile OpenCV, including the build tools themselves.  Execute the following commands to acquire the minimum required packages:
+To compile OpenCV, we must ensure that the required dependencies are available, including the build tools themselves.  We can get the required ones using `apt` on Ubuntu, but first, ensure the package list is up-to-date by running `apt-get update`.  Next, execute the following commands to get the required packages (see below for a one-line list of all):
 
+    sudo apt-get install cmake build-essential pkg-config
+
+    sudo apt-get install libgtk2.0-dev libtbb-dev
+
+    sudo apt-get install python-dev python-numpy python-scipy
+
+    sudo apt-get install libjasper-dev  libjpeg-dev libpng-dev libtiff-dev 
+
+    sudo apt-get install libavcodec-dev libavutil-dev libavformat-dev libswscale-dev
+
+    sudo apt-get install libdc1394-22-dev libv4l-dev
 
 Note that for additional OpenCV modules/features (e.g. GPU/CUDA support, or Python 3 module), you will need to download the respective development/SDK packages for those libraries as well.  The dependencies listed above only cover building OpenCV itself and the Python 2.7 `cv2` module.
 
@@ -91,16 +104,40 @@ a
 
       mkdir build
       cd build
+      cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
 
-a
+If there are any errors, ensure that you downloaded all the required packages - the output should help track down what is missing.  To ensure the Python module will be built, in the output, you should see the following:
+    
+    [...]
 
+    --     Linker flags (Release):
+    --     Linker flags (Debug):
+    --     Precompiled headers:      YES
+    --
+    --   OpenCV modules:
+    --     To be built:              hal core flann imgproc ml photo video [...] python2
 
-    sudo apt-get install [packages]
+    [...]
 
-If you run into build issues, ensure that you have all the required dependencies and header files on your system.  If these issues persist, see the [**Linux Build Issues**](#linux-build-issues) section below for some possible workarounds.  When installing OpenCV 3.0-rc1 on Xubuntu 12.04, I found that I had to modify one of the OpenCV header files to add some additional codec `#define` lines.
+If you do not see the `python2` module listed in the "To be built" list, check that you have the proper development packages installed, remove all files from the `build/` folder, and try running the `cmake` command again.
 
+Once the configuration is complete, we can build OpenCV and the Python module, and install it to our system:
+
+    make
+    sudo make install
+
+**Ensure that the build was successful after calling `make` and check the output before installing.** If you run into build issues/errors, again ensure that you have all the required dependencies and header files on your system.  If there are actual build issues with OpenCV itself, see the [**Linux Build Issues**](#linux-build-issues) section below for some possible workarounds.
+
+When installing OpenCV 3.0-rc1 on Ubuntu 12.04, I ran into build errors regarding some missing codec `#define` entries.  As mentioned, the steps to do this are [detailed below](#linux-build-issues) should you run into the same problem.  Conversely, on Ubuntu 14.04, the build completed successfully without any modifications.
+
+If you can't `import cv2` from a Python shell after running `sudo make install`, but the build was successful, you can install the module manually.  This is done by copying the `cv2.so` file from the `build/lib/` directory to your local `python2.7/dist-packages/` folder.  From the `build/` folder, this can be done by:
+
+    sudo cp lib/cv2.so /usr/local/lib/python2.7/dist-packages/
+
+After this step, the `cv2` module is installed, and can now be used by your Python environment. Continue on to the [Verifying Installation](#verifying-installation) section to ensure everything was installed correctly, and more importantly, that the proper version of OpenCV is being used bu Python.  Also be sure to check out the next page, [Migration & Changes](migrating.md), for details about the changes to the module and updating existing code.
 
 ------------------------------------------------------
+
 
 ## Verifying Installation
 
@@ -114,8 +151,9 @@ Assuming the correct version string is printed, everything should be installed c
 Note that there are some major changes to the `cv2` module hierarchy itself, and Python programs written with OpenCV 2.4.x in mind may not work properly anymore.  See the next section, [**Migration & Changes**](migrating.md) for details about the changes, and how to modify programs to deal with the changes.
 
 
-
 ------------------------------------------------------
+
 
 ## Linux Build Issues
 
+Section still under development.
