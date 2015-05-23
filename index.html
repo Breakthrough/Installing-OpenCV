@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="./img/favicon.ico">
 
-	<title>OpenCV 3.0 Install Guide</title>
+	<title>OpenCV 3.0 Python Guide</title>
 
         <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="./css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -41,7 +41,7 @@
             </button>
 
             <!-- Main title -->
-            <a class="navbar-brand" href=".">OpenCV 3.0 Install Guide</a>
+            <a class="navbar-brand" href=".">OpenCV 3.0 Python Guide</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -98,11 +98,23 @@
     
         <li class="main "><a href="#installing-on-windows-pre-built-binaries">Installing on Windows (pre-built binaries)</a></li>
         
+            <li><a href="#downloading-opencv-and-python">Downloading OpenCV and Python</a></li>
+        
+            <li><a href="#installing-module-dependencies">Installing Module Dependencies</a></li>
+        
+            <li><a href="#installing-python-opencv-module">Installing Python-OpenCV Module</a></li>
+        
     
         <li class="main "><a href="#installing-on-linux-compiling-from-source">Installing on Linux (compiling from source)</a></li>
         
+            <li><a href="#downloading-opencv">Downloading OpenCV</a></li>
+        
+            <li><a href="#installing-build-dependencies">Installing Build Dependencies</a></li>
+        
+            <li><a href="#compiling-and-installing-opencv">Compiling and Installing OpenCV</a></li>
+        
     
-        <li class="main "><a href="#verifying-install-and-python-code-migration">Verifying Install and Python Code Migration</a></li>
+        <li class="main "><a href="#verifying-installation">Verifying Installation</a></li>
         
     
         <li class="main "><a href="#linux-build-issues">Linux Build Issues</a></li>
@@ -113,22 +125,70 @@
             <div class="col-md-9" role="main">
 
 <h2 id="introduction-and-overview">Introduction and Overview</h2>
-<p><code>This section is still under development.</code></p>
-<p>This guide contains instructions for installing the new OpenCV 3, on Windows from pre-built binaries, and on Ubuntu 12/14 from source code.  This page covers the installation process from start to finish, focusing finally on the Python <code>cv2</code> module itself.  Once installed, see the <a href="migrating/"><strong>Migration &amp; Changes</strong></a> page for details regarding the changes to the <code>cv2</code> module itself, and for help with migrating existing Python code from older versions of OpenCV.</p>
-<p>To get started, OpenCV can be downloaded from <a href="http://opencv.org/downloads.html">the official OpenCV website</a>, or by clicking one of the two following links.  This guide is written based on OpenCV version 3.0-rc1 (<a href="http://sourceforge.net/projects/opencvlibrary/files/opencv-win/3.0.0-rc1/opencv-3.0.0-rc1.exe/download"><code>opencv-3.0.0-rc1.exe</code> for Windows</a>, or <a href="https://github.com/Itseez/opencv/archive/3.0.0-rc1.zip"><code>3.0.0-rc1.zip</code> for Linux</a>).  Start by downloading the appropriate version for your operating system, and extract the archive to a location of your choice.</p>
-<p>The methods described in this document apply to both 32-bit and 64-bit operating systems/Python interpreters.  This guide is also applicable to other versions of Ubuntu (and Xubuntu/Lubuntu/Kubuntu), as well Debian and other Debian-like Linux distros.  Although OpenCV 3.0 now supports Python 3, pre-built binaries are not included with the Windows release yet - binaries for both 32-bit and 64-bit version of Python 2.7, however, is included and requires no extra configuration.  On Linux, the Python 3 module will be built if you have a Python 3 interpreter and the development header files installed before starting to compile OpenCV.</p>
+<p>This document contains instructions for installing and migrating to the latest release of OpenCV (version 3) and the Python bindings.  In addition to some API changes, there are also changes to the Python interface (e.g. removal of <code>cv2.cv</code>) that may require changes in existing code to work with the new version of the <code>cv2</code> module.  After installation, see the next page, <a href="migrating/"><strong>Migration &amp; Changes</strong></a>, for details regarding the changes to the module and for help migrating existing Python code to the new version.</p>
+<hr />
+<p>This page covers installing OpenCV 3 on Windows (using pre-built binaries) and Linux (compiled from source), including the Python interface (the <code>cv2</code> module).  OpenCV can be downloaded from <a href="http://opencv.org/downloads.html">the official OpenCV website</a>.  Note that this guide is written based on OpenCV version <strong>3.0-rc1</strong>.  After installation, it is recommended that you can check the version of OpenCV that Python is using:</p>
+<pre><code>import cv2
+print cv2.__version__
+
+# Should print 3.0.0-rc1 or newer.
+</code></pre>
+<p>Note that although OpenCV 3.0 is the latest release, by convention, the module is still named <code>cv2</code>.  </p>
+<hr />
 <h2 id="installing-on-windows-pre-built-binaries">Installing on Windows (pre-built binaries)</h2>
-<p>Support for Python 3, or adding other non-standard features, requires compiling from source.  To compile from source on Windows, see the official OpenCV documentation.</p>
+<p>Using pre-built binaries is the quickest way to get a Python OpenCV environment up and running on Windows.  Currently, only the Python 2 version of the <code>cv2</code> module is built and included in the latest Windows release.  Support for Python 3 (as well as adding other non-standard features/modules), requires compiling from source - see the official OpenCV documentation for details.</p>
+<h4 id="downloading-opencv-and-python">Downloading OpenCV and Python</h4>
+<p>To begin, <a href="http://opencv.org/downloads.html">download OpenCV</a> for Windows (<a href="http://sourceforge.net/projects/opencvlibrary/files/opencv-win/3.0.0-rc1/opencv-3.0.0-rc1.exe/download">version 3.0 RC1, <code>opencv-3.0.0-rc1.exe</code></a>), and extract it to a directory of your choice (e.g. <code>~/opencv-src</code>).  The Windows build includes both a 32-bit and 64-bit module for Python 2.7.</p>
+<p>Before continuing, ensure that you have a working Python 2.7 installation, which can be downloaded from <a href="https://www.python.org/">the Python website</a>.  This guide was tested using Python 2.7.9 (<a href="https://www.python.org/ftp/python/2.7.9/python-2.7.9.msi">x86 installer</a> / <a href="https://www.python.org/ftp/python/2.7.9/python-2.7.9.amd64.msi">x64 installer</a>).  When installing, it is recommended that you allow the installer to add Python to your <code>PATH</code> environment variable, so you can run <code>python</code> and <code>pip</code> from a command prompt.</p>
+<h4 id="installing-module-dependencies">Installing Module Dependencies</h4>
+<p>The Python OpenCV <code>cv2</code> module requires both the <code>NumPy</code> and <code>SciPy</code> stack.  To get this, first ensure that you have a working <code>python</code> environment, and have <code>pip</code> installed (if not, use the links above, and ensure the Python folder is in your <code>PATH</code> variable).</p>
+<p>Christoph Gohlke currently provides some (unofficial) <a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">pre-built Python packages for Windows</a>, including NumPy and SciPy.  Download the latest stable versions of <a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy">NumPy</a> and <a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy">SciPy</a>, and install them by calling <code>pip install [module].whl</code> from a command prompt.  Note that you should download the version corresponding to your Python environment (2.7 in this case) and word length.  For example, on 32-bit systems/interpreters:</p>
+<pre><code>pip install numpy-1.9.2+mkl-cp27-none-win32.whl
+pip install scipy-0.15.1-cp27-none-win32.whl
+</code></pre>
+<p>And for 64-bit systems/interpreters:</p>
+<pre><code>pip install numpy-1.9.2+mkl-cp27-none-win_amd64.whl
+pip install scipy-0.15.1-cp27-none-win_amd64.whl
+</code></pre>
+<p>After installing, you should be able to run <code>import numpy</code> and <code>import scipy</code> from a Python interpreter to verify that the modules were installed correctly.  You can check what versions of NumPy and SciPy are installed from <code>numpy.__version__</code> and <code>scipy.__version__</code>, respectively.</p>
+<h4 id="installing-python-opencv-module">Installing Python-OpenCV Module</h4>
+<p>Lastly, we need to copy the OpenCV module into the local Python packages.  In the files extracted from <code>opencv-3.0.0-rc1.exe</code>, go to the folder <code>opencv/build/python/2.7/</code>, and open either the <code>x86/</code> (for 32-bit) or <code>x64/</code> (for 64-bit) folder.  In each, there will be a <code>cv2.pyd</code> file.</p>
+<p>Copy <code>cv2.pyd</code> directly into the <code>Lib/site-packages/</code> directory of your Python installation.  For most users, this will be found at:</p>
+<pre><code>C:/Python27/Lib/site-packages
+</code></pre>
+<p>And we're done!  Continue on to the <a href="#verifying-installation">Verifying Installation</a> section to ensure everything was installed correctly, and the new version of OpenCV is being used.  Also be sure to check out the next page, <a href="migrating/">Migration &amp; Changes</a>, for details about the changes to the module and updating existing code.</p>
+<hr />
 <h2 id="installing-on-linux-compiling-from-source">Installing on Linux (compiling from source)</h2>
+<p>Although this guide is written for Ubuntu 12.04/14.04 and other variants (e.g. Xubuntu/Lubuntu/Kubuntu), the process should largely be the same on other versions, as well as similar Debian-like Linux distributions.  Pay attention to the output of each command to ensure everything worked correctly, and if there are any issues during the build process, see the bottom of this document for possible mitigations</p>
+<h4 id="downloading-opencv">Downloading OpenCV</h4>
+<p>To begin, <a href="http://opencv.org/downloads.html">download OpenCV</a> for Linux (<a href="https://github.com/Itseez/opencv/archive/3.0.0-rc1.zip">version 3.0 RC1, <code>opencv-3.0.0-rc1.zip</code></a>), and extract it to a directory of your choice (e.g. <code>~/opencv-src</code>).  Create a <code>build</code> folder inside the folder where the archive was extracted (the directory containing the <code>CMakeLists.txt</code> file), and open a terminal session there.  For example:</p>
+<pre><code># Assuming the files were extracted to ~/opencv-src/...
+cd ~/opencv-src
+mkdir build
+cd build
+</code></pre>
+<p>Execute all of following commands from the <code>build</code> sub-folder itself, so the compiled files will be placed there.</p>
+<h4 id="installing-build-dependencies">Installing Build Dependencies</h4>
+<p>Let's ensure we have all of the required dependencies to compile OpenCV, including the build tools themselves.  Execute the following commands to acquire the minimum required packages:</p>
+<p>Note that for additional OpenCV modules/features (e.g. GPU/CUDA support, or Python 3 module), you will need to download the respective development/SDK packages for those libraries as well.  The dependencies listed above only cover building OpenCV itself and the Python 2.7 <code>cv2</code> module.</p>
+<h4 id="compiling-and-installing-opencv">Compiling and Installing OpenCV</h4>
+<p>a</p>
+<pre><code>  mkdir build
+  cd build
+</code></pre>
+<p>a</p>
 <pre><code>sudo apt-get install [packages]
 </code></pre>
 <p>If you run into build issues, ensure that you have all the required dependencies and header files on your system.  If these issues persist, see the <a href="#linux-build-issues"><strong>Linux Build Issues</strong></a> section below for some possible workarounds.  When installing OpenCV 3.0-rc1 on Xubuntu 12.04, I found that I had to modify one of the OpenCV header files to add some additional codec <code>#define</code> lines.</p>
-<h2 id="verifying-install-and-python-code-migration">Verifying Install and Python Code Migration</h2>
-<p>You can check what version of the <code>cv2</code> module Python is using by running the following in a <code>python</code> shell:</p>
+<hr />
+<h2 id="verifying-installation">Verifying Installation</h2>
+<p>As mentioned previously, you can verify that the <code>cv2</code> module was installed correctly by executing the following in a Python shell:</p>
 <pre><code>import cv2
 print cv2.__version__
 </code></pre>
-<p>Assuming the correct version string is printed, everything should be installed correctly at this point.  Note, however, that there are some major changes to the <code>cv2</code> module hierarchy itself, and Python programs written with OpenCV 2.4.x in mind may not work properly.  See the next section, <a href="migrating/"><strong>Migration &amp; Changes</strong></a></p>
+<p>Assuming the correct version string is printed, everything should be installed correctly at this point.</p>
+<p>Note that there are some major changes to the <code>cv2</code> module hierarchy itself, and Python programs written with OpenCV 2.4.x in mind may not work properly anymore.  See the next section, <a href="migrating/"><strong>Migration &amp; Changes</strong></a> for details about the changes, and how to modify programs to deal with the changes.</p>
+<hr />
 <h2 id="linux-build-issues">Linux Build Issues</h2></div>
         </div>
 

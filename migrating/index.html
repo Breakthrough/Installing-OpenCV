@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>Migration & Changes - OpenCV 3.0 Install Guide</title>
+	<title>Migration & Changes - OpenCV 3.0 Python Guide</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
@@ -41,7 +41,7 @@
             </button>
 
             <!-- Main title -->
-            <a class="navbar-brand" href="..">OpenCV 3.0 Install Guide</a>
+            <a class="navbar-brand" href="..">OpenCV 3.0 Python Guide</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -93,7 +93,7 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#updating-code-from-opencv-24x-to-30">Updating Code from OpenCV 2.4.x to 3.0+</a></li>
+        <li class="main active"><a href="#migrating-code-from-opencv-24x-to-30">Migrating Code from OpenCV 2.4.x to 3.0+</a></li>
         
     
         <li class="main "><a href="#changes-to-the-cv2-module">Changes to the cv2 Module</a></li>
@@ -107,10 +107,10 @@
 </div></div>
             <div class="col-md-9" role="main">
 
-<h2 id="updating-code-from-opencv-24x-to-30">Updating Code from OpenCV 2.4.x to 3.0+</h2>
+<h2 id="migrating-code-from-opencv-24x-to-30">Migrating Code from OpenCV 2.4.x to 3.0+</h2>
 <p><code>This section is still under development.</code></p>
-<p>There are some changes made in the Python <code>cv2</code> interface in OpenCV 3.0 that will cause errors in some programs written for the older version (2.4.x).  It is recommended that you check the version installed at runtime (using <code>cv2.__version__</code>), and take appropriate action if an older version (&lt; 3.0) is present.</p>
-<p>Changes to the <code>cv2</code> module itself are discussed below, and should help with what changes need to be made to existing programs for them to run smoothly in newer versions of OpenCV (&gt;= 3.0).</p>
+<p>There are some changes made in the Python <code>cv2</code> interface in OpenCV 3.0 that will cause errors in some programs written for the older version (<code>&lt;= 2.4</code>).  It is recommended that you check the version installed at runtime (using <code>cv2.__version__</code>), and take appropriate action if an older version (<code>&lt; 3.0</code>) is present.</p>
+<p>Changes to the <code>cv2</code> module itself are discussed below, and should help with what changes need to be made to existing programs for them to run smoothly in newer versions of OpenCV (<code>&gt;= 3.0</code>).</p>
 <h2 id="changes-to-the-cv2-module">Changes to the <code>cv2</code> Module</h2>
 <h3 id="removal-of-legacy-cv2cv-module">Removal of Legacy <code>cv2.cv</code> Module</h3>
 <h3 id="changes-to-video-io-api">Changes to Video I/O API</h3></div>
