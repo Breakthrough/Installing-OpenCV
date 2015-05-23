@@ -1,7 +1,8 @@
 site_name: OpenCV 3.0 Python Guide
+site_author: "Brandon Castellano"
+
 repo_url: https://github.com/Breakthrough
 repo_name: "Brandon Castellano"
-site_author: "Brandon Castellano"
 copyright: "Copyright &copy; 2015 Brandon Castellano.  All rights reserved.<br>This document is hereby released into the public domain."
 
 theme: flatly
@@ -9,3 +10,5 @@ theme: flatly
 pages:
 - [index.md, "Installation"]
 - [migrating.md, "Migration & Changes"]
+
+markdown_extensions: [fenced_code]
