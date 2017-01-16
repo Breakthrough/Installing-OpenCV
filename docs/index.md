@@ -7,7 +7,7 @@ This document contains instructions for installing and migrating to the latest r
 ------------------------------------------------------
 
 
-This page covers installing OpenCV 3 on Windows (using pre-built binaries) and Linux (compiled from source), including the Python interface (the `cv2` module).  OpenCV can be downloaded from [the official OpenCV website](http://opencv.org/downloads.html).  Note that this guide is written based on OpenCV version **3.0-rc1**.  After installation, it is recommended that you can check the version of OpenCV that Python is using:
+This page covers installing OpenCV 3 on Windows (using pre-built binaries) and Linux (compiled from source), including the Python interface (the `cv2` module).  OpenCV can be downloaded from [the official OpenCV website](http://opencv.org/downloads.html).  Note that this guide is written based on OpenCV version **3.1.0**.  After installation, it is recommended that you can check the version of OpenCV that Python is using:
 
 ```python
 import cv2
@@ -16,7 +16,7 @@ print cv2.__version__
 # Should print 3.0.0-rc1 or newer.
 ```
 
-Note that although OpenCV 3.0 is the latest release, by convention, the module is still named `cv2`.
+Note that although OpenCV 3 is the latest release, by convention, the module is still named `cv2`.
 
 
 ------------------------------------------------------
@@ -29,7 +29,7 @@ Using pre-built binaries is the quickest way to get a Python OpenCV environment 
 
 #### Downloading OpenCV and Python
 
-To begin, [download OpenCV](http://opencv.org/downloads.html) for Windows ([version 3.0 RC1, `opencv-3.0.0-rc1.exe`](http://sourceforge.net/projects/opencvlibrary/files/opencv-win/3.0.0-rc1/opencv-3.0.0-rc1.exe/download)), and extract it to a directory of your choice.  The Windows build includes both a 32-bit and 64-bit module for Python 2.7.
+To begin, [download OpenCV](http://opencv.org/downloads.html) for Windows ([version 3.1, `opencv-3.1.0.exe`](http://sourceforge.net/projects/opencvlibrary/files/opencv-win/3.1.0/opencv-3.1.0.exe/download)), and extract it to a directory of your choice.  The Windows build includes both a 32-bit and 64-bit module for Python 2.7.
 
 Before continuing, ensure that you have a working Python 2.7 installation, which can be downloaded from [the Python website](https://www.python.org/).  This guide was tested using Python 2.7.9 ([x86 installer](https://www.python.org/ftp/python/2.7.9/python-2.7.9.msi) / [x64 installer](https://www.python.org/ftp/python/2.7.9/python-2.7.9.amd64.msi)).  When installing, it is recommended that you allow the installer to add Python to your `PATH` environment variable, so you can run `python` and `pip` from a command prompt.
 
@@ -61,7 +61,9 @@ Copy `cv2.pyd` directly into the `Lib\site-packages\` directory of your Python i
 C:\Python27\Lib\site-packages 
 ```
 
-And we're done!  Continue on to the [Verifying Installation](#verifying-installation) section to ensure everything was installed correctly, and the new version of OpenCV is being used.  Also be sure to check out the next page, [Migration & Changes](migrating.md), for details about the changes to the module and updating existing code.
+Lastly, ensure that the OpenCV .dll files are somewhere in your system's `%PATH%`, especially the `opencv_ffmpeg310.dll` (or `opencv_ffmpeg310_64.dll` for 64-bit systems) file required for loading video files.
+
+Continue on to the [Verifying Installation](#verifying-installation) section to ensure everything was installed correctly, and the new version of OpenCV is being used.  Also be sure to check out the next page, [Migration & Changes](migrating.md), for details about the changes to the module and updating existing code.
 
 
 ------------------------------------------------------
@@ -74,7 +76,7 @@ Although this guide is written for Ubuntu 12.04/14.04 and other variants (e.g. X
 
 #### Downloading OpenCV
 
-To begin, [download OpenCV](http://opencv.org/downloads.html) for Linux ([version 3.0 RC1, `opencv-3.0.0-rc1.zip`](https://github.com/Itseez/opencv/archive/3.0.0-rc1.zip)), and extract it to a directory of your choice (e.g. `~/opencv-src`).  Create a `build` folder inside the folder where the archive was extracted (the directory containing the `CMakeLists.txt` file), and open a terminal session there.  For example:
+To begin, [download OpenCV](http://opencv.org/downloads.html) for Linux ([version 3.1.0, `opencv-3.1.0.zip`](https://github.com/Itseez/opencv/archive/3.1.0.zip)), and extract it to a directory of your choice (e.g. `~/opencv-src`).  Create a `build` folder inside the folder where the archive was extracted (the directory containing the `CMakeLists.txt` file), and open a terminal session there.  For example:
 
     # Assuming the files were extracted to ~/opencv-src/...
     cd ~/opencv-src
@@ -137,7 +139,7 @@ sudo make install
 
 **Ensure that the build was successful after calling `make`, and check the output before installing.** If you run into build issues/errors, again ensure that you have all the required dependencies and header files on your system.  If there are actual build issues with OpenCV itself, see the [**Linux Build Issues**](#linux-build-issues) section below for some possible workarounds.
 
-When installing OpenCV 3.0-rc1 on Ubuntu 12.04, I ran into build errors regarding some missing codec `#define` entries.  As mentioned, the steps to do this are [detailed below](#linux-build-issues) should you run into the same problem.  Conversely, on Ubuntu 14.04, the build completed successfully without any modifications.
+When installing OpenCV 3.0-rc1 on Ubuntu 12.04, I ran into build errors regarding some missing codec `#define` entries.  As mentioned, the steps to do this are [detailed below](#linux-build-issues) should you run into the same problem (the problem should be solved in version 3.1.0 and above).  Ubuntu 14.04 and above should build successfully without requiring any modifications.
 
 If the build was successful, but you can't `import cv2` from a Python shell after running `make install`, you can install the module manually by copying the `cv2.so` file we just built in the `build/lib/` folder to `/usr/local/lib/python2.7/dist-packages/`.  From the `build/` folder, this can be done by:
 
