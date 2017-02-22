@@ -97,11 +97,16 @@ sudo apt-get install libgtk2.0-dev libtbb-dev
 
 sudo apt-get install python-dev python-numpy python-scipy
 
-sudo apt-get install libjasper-dev  libjpeg-dev libpng-dev libtiff-dev 
+sudo apt-get install libjasper-dev libjpeg-dev libpng-dev libtiff-dev 
 
 sudo apt-get install libavcodec-dev libavutil-dev libavformat-dev libswscale-dev
 
 sudo apt-get install libdc1394-22-dev libv4l-dev
+```
+
+In single line:
+```bash
+sudo apt-get install cmake build-essential pkg-config libgtk2.0-dev libtbb-dev python-dev python-numpy python-scipy libjasper-dev libjpeg-dev libpng-dev libtiff-dev libavcodec-dev libavutil-dev libavformat-dev libswscale-dev libdc1394-22-dev libv4l-dev
 ```
 
 Note that for additional OpenCV modules/features (e.g. GPU/CUDA support, or Python 3 module), you will need to download the respective development/SDK packages for those libraries as well.  The dependencies listed above only cover building OpenCV itself and the Python 2.7 `cv2` module.
