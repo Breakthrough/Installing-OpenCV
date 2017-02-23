@@ -65,7 +65,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
-                
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li class="disabled">
                     <a rel="next" >
                         <i class="fa fa-arrow-left"></i> Previous
@@ -129,19 +133,19 @@
 <h2 id="introduction-and-overview">Introduction and Overview</h2>
 <p>This document contains instructions for installing and migrating to the latest release of OpenCV (version 3) and the Python bindings.  In addition to some API changes, there are also changes to the Python interface (e.g. removal of <code>cv2.cv</code>) that may require changes in existing code to work with the new version of the <code>cv2</code> module.  After installation, see the next page, <a href="migrating/"><strong>Migration &amp; Changes</strong></a>, for details regarding the changes to the module and for help migrating existing Python code to the new version.</p>
 <hr />
-<p>This page covers installing OpenCV 3 on Windows (using pre-built binaries) and Linux (compiled from source), including the Python interface (the <code>cv2</code> module).  OpenCV can be downloaded from <a href="http://opencv.org/downloads.html">the official OpenCV website</a>.  Note that this guide is written based on OpenCV version <strong>3.0-rc1</strong>.  After installation, it is recommended that you can check the version of OpenCV that Python is using:</p>
+<p>This page covers installing OpenCV 3 on Windows (using pre-built binaries) and Linux (compiled from source), including the Python interface (the <code>cv2</code> module).  OpenCV can be downloaded from <a href="http://opencv.org/downloads.html">the official OpenCV website</a>.  Note that this guide is written based on OpenCV version <strong>3.1.0</strong>.  After installation, it is recommended that you can check the version of OpenCV that Python is using:</p>
 <pre><code class="python">import cv2
 print cv2.__version__
 
 # Should print 3.0.0-rc1 or newer.
 </code></pre>
 
-<p>Note that although OpenCV 3.0 is the latest release, by convention, the module is still named <code>cv2</code>.</p>
+<p>Note that although OpenCV 3 is the latest release, by convention, the module is still named <code>cv2</code>.</p>
 <hr />
 <h2 id="installing-on-windows-pre-built-binaries">Installing on Windows (pre-built binaries)</h2>
 <p>Using pre-built binaries is the quickest way to get a Python OpenCV environment up and running on Windows.  Currently, only the Python 2 version of the <code>cv2</code> module is built and included in the latest Windows release.  Support for Python 3 (as well as adding other non-standard features/modules), requires compiling from source - see the official OpenCV documentation for details.</p>
 <h4 id="downloading-opencv-and-python">Downloading OpenCV and Python</h4>
-<p>To begin, <a href="http://opencv.org/downloads.html">download OpenCV</a> for Windows (<a href="http://sourceforge.net/projects/opencvlibrary/files/opencv-win/3.0.0-rc1/opencv-3.0.0-rc1.exe/download">version 3.0 RC1, <code>opencv-3.0.0-rc1.exe</code></a>), and extract it to a directory of your choice.  The Windows build includes both a 32-bit and 64-bit module for Python 2.7.</p>
+<p>To begin, <a href="http://opencv.org/downloads.html">download OpenCV</a> for Windows (<a href="http://sourceforge.net/projects/opencvlibrary/files/opencv-win/3.1.0/opencv-3.1.0.exe/download">version 3.1, <code>opencv-3.1.0.exe</code></a>), and extract it to a directory of your choice.  The Windows build includes both a 32-bit and 64-bit module for Python 2.7.</p>
 <p>Before continuing, ensure that you have a working Python 2.7 installation, which can be downloaded from <a href="https://www.python.org/">the Python website</a>.  This guide was tested using Python 2.7.9 (<a href="https://www.python.org/ftp/python/2.7.9/python-2.7.9.msi">x86 installer</a> / <a href="https://www.python.org/ftp/python/2.7.9/python-2.7.9.amd64.msi">x64 installer</a>).  When installing, it is recommended that you allow the installer to add Python to your <code>PATH</code> environment variable, so you can run <code>python</code> and <code>pip</code> from a command prompt.</p>
 <h4 id="installing-module-dependencies">Installing Module Dependencies</h4>
 <p>The Python OpenCV <code>cv2</code> module requires both the <code>NumPy</code> and <code>SciPy</code> stack.  To get this, first ensure that you have a working <code>python</code> environment, and have <code>pip</code> installed (if not, use the links above, and ensure the Python folder is in your <code>PATH</code> variable).</p>
@@ -160,12 +164,13 @@ pip install scipy-0.15.1-cp27-none-win_amd64.whl
 <pre><code class="bash">C:\Python27\Lib\site-packages 
 </code></pre>
 
-<p>And we're done!  Continue on to the <a href="#verifying-installation">Verifying Installation</a> section to ensure everything was installed correctly, and the new version of OpenCV is being used.  Also be sure to check out the next page, <a href="migrating/">Migration &amp; Changes</a>, for details about the changes to the module and updating existing code.</p>
+<p>Lastly, ensure that the OpenCV .dll files are somewhere in your system's <code>%PATH%</code>, especially the <code>opencv_ffmpeg310.dll</code> (or <code>opencv_ffmpeg310_64.dll</code> for 64-bit systems) file required for loading video files.</p>
+<p>Continue on to the <a href="#verifying-installation">Verifying Installation</a> section to ensure everything was installed correctly, and the new version of OpenCV is being used.  Also be sure to check out the next page, <a href="migrating/">Migration &amp; Changes</a>, for details about the changes to the module and updating existing code.</p>
 <hr />
 <h2 id="installing-on-linux-compiling-from-source">Installing on Linux (compiling from source)</h2>
 <p>Although this guide is written for Ubuntu 12.04/14.04 and other variants (e.g. Xubuntu/Lubuntu/Kubuntu), the process should largely be the same on other versions, as well as similar Debian-like Linux distributions.  Pay attention to the output of each command to ensure everything worked correctly, and if there are any issues during the build process, see the bottom of this document for possible mitigations</p>
 <h4 id="downloading-opencv">Downloading OpenCV</h4>
-<p>To begin, <a href="http://opencv.org/downloads.html">download OpenCV</a> for Linux (<a href="https://github.com/Itseez/opencv/archive/3.0.0-rc1.zip">version 3.0 RC1, <code>opencv-3.0.0-rc1.zip</code></a>), and extract it to a directory of your choice (e.g. <code>~/opencv-src</code>).  Create a <code>build</code> folder inside the folder where the archive was extracted (the directory containing the <code>CMakeLists.txt</code> file), and open a terminal session there.  For example:</p>
+<p>To begin, <a href="http://opencv.org/downloads.html">download OpenCV</a> for Linux (<a href="https://github.com/Itseez/opencv/archive/3.1.0.zip">version 3.1.0, <code>opencv-3.1.0.zip</code></a>), and extract it to a directory of your choice (e.g. <code>~/opencv-src</code>).  Create a <code>build</code> folder inside the folder where the archive was extracted (the directory containing the <code>CMakeLists.txt</code> file), and open a terminal session there.  For example:</p>
 <pre><code># Assuming the files were extracted to ~/opencv-src/...
 cd ~/opencv-src
 mkdir build
@@ -180,11 +185,15 @@ sudo apt-get install libgtk2.0-dev libtbb-dev
 
 sudo apt-get install python-dev python-numpy python-scipy
 
-sudo apt-get install libjasper-dev  libjpeg-dev libpng-dev libtiff-dev 
+sudo apt-get install libjasper-dev libjpeg-dev libpng-dev libtiff-dev 
 
 sudo apt-get install libavcodec-dev libavutil-dev libavformat-dev libswscale-dev
 
 sudo apt-get install libdc1394-22-dev libv4l-dev
+</code></pre>
+
+<p>In single line:</p>
+<pre><code class="bash">sudo apt-get install cmake build-essential pkg-config libgtk2.0-dev libtbb-dev python-dev python-numpy python-scipy libjasper-dev libjpeg-dev libpng-dev libtiff-dev libavcodec-dev libavutil-dev libavformat-dev libswscale-dev libdc1394-22-dev libv4l-dev
 </code></pre>
 
 <p>Note that for additional OpenCV modules/features (e.g. GPU/CUDA support, or Python 3 module), you will need to download the respective development/SDK packages for those libraries as well.  The dependencies listed above only cover building OpenCV itself and the Python 2.7 <code>cv2</code> module.</p>
@@ -212,7 +221,7 @@ sudo make install
 </code></pre>
 
 <p><strong>Ensure that the build was successful after calling <code>make</code>, and check the output before installing.</strong> If you run into build issues/errors, again ensure that you have all the required dependencies and header files on your system.  If there are actual build issues with OpenCV itself, see the <a href="#linux-build-issues"><strong>Linux Build Issues</strong></a> section below for some possible workarounds.</p>
-<p>When installing OpenCV 3.0-rc1 on Ubuntu 12.04, I ran into build errors regarding some missing codec <code>#define</code> entries.  As mentioned, the steps to do this are <a href="#linux-build-issues">detailed below</a> should you run into the same problem.  Conversely, on Ubuntu 14.04, the build completed successfully without any modifications.</p>
+<p>When installing OpenCV 3.0-rc1 on Ubuntu 12.04, I ran into build errors regarding some missing codec <code>#define</code> entries.  As mentioned, the steps to do this are <a href="#linux-build-issues">detailed below</a> should you run into the same problem (the problem should be solved in version 3.1.0 and above).  Ubuntu 14.04 and above should build successfully without requiring any modifications.</p>
 <p>If the build was successful, but you can't <code>import cv2</code> from a Python shell after running <code>make install</code>, you can install the module manually by copying the <code>cv2.so</code> file we just built in the <code>build/lib/</code> folder to <code>/usr/local/lib/python2.7/dist-packages/</code>.  From the <code>build/</code> folder, this can be done by:</p>
 <pre><code class="bash">sudo cp lib/cv2.so /usr/local/lib/python2.7/dist-packages/
 </code></pre>
@@ -236,11 +245,44 @@ print cv2.__version__
 <p>Once the file is updated, you can call <code>make</code> again from the <code>build/</code> folder, and OpenCV should finish compiling without error now.</p></div>
         </div>
 
-        
+        <footer class="col-md-12">
+            <hr>
+            
+                <center>Copyright &copy; 2015-2017 Brandon Castellano.  All rights reserved.<br>This document is hereby released into the public domain.</center>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
 
         <script src="./js/jquery-1.10.2.min.js"></script>
         <script src="./js/bootstrap-3.0.3.min.js"></script>
         <script src="./js/highlight.pack.js"></script>
+        <script>var base_url = '.';</script>
+        <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
         <script src="./js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
